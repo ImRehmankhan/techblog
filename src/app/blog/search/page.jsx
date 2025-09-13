@@ -32,7 +32,7 @@ function SearchResultCard({ post }) {
         {post.categories.map((category) => (
           <Link
             key={category.slug}
-            href={`/blog/categories/${category.slug}`}
+            href={`/blog/category/${category.slug}`}
             className="px-2 py-1 text-xs rounded-full text-white hover:opacity-80 transition-opacity"
             style={{ backgroundColor: category.color }}
           >

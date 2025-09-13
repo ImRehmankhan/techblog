@@ -8,10 +8,10 @@ const samplePosts = [
     title: 'Getting Started with React.js in 2024',
     excerpt: 'Learn the fundamentals of React.js and build your first component-based application with modern best practices.',
     slug: 'getting-started-react-js-2024',
-    image: '/api/placeholder/600/300',
+    image: 'https://via.placeholder.com/600x300/61DAFB/FFFFFF?text=React.js+Tutorial',
     readTime: 8,
     createdAt: new Date('2024-01-15'),
-    author: { name: 'John Doe', image: '/api/placeholder/40/40' },
+    author: { name: 'John Doe', image: 'https://via.placeholder.com/40x40/4F46E5/FFFFFF?text=JD' },
     categories: [{ name: 'React.js', slug: 'reactjs', color: '#61DAFB' }],
     tags: [{ name: 'beginner' }, { name: 'tutorial' }],
     featured: true,
@@ -22,10 +22,10 @@ const samplePosts = [
     title: 'React Native Navigation: A Complete Guide',
     excerpt: 'Master React Navigation v6 and create seamless navigation experiences in your React Native applications.',
     slug: 'react-native-navigation-complete-guide',
-    image: '/api/placeholder/600/300',
+    image: 'https://via.placeholder.com/600x300/FF6B35/FFFFFF?text=React+Native+Guide',
     readTime: 12,
     createdAt: new Date('2024-01-10'),
-    author: { name: 'Jane Smith', image: '/api/placeholder/40/40' },
+    author: { name: 'Jane Smith', image: 'https://via.placeholder.com/40x40/10B981/FFFFFF?text=JS' },
     categories: [{ name: 'React Native', slug: 'react-native', color: '#FF6B35' }],
     tags: [{ name: 'navigation' }, { name: 'mobile' }],
     featured: true,
@@ -36,10 +36,10 @@ const samplePosts = [
     title: 'State Management in React: Redux vs Context API',
     excerpt: 'Compare different state management solutions and learn when to use Redux vs Context API in your React applications.',
     slug: 'state-management-react-redux-context-api',
-    image: '/api/placeholder/600/300',
+    image: 'https://via.placeholder.com/600x300/8B5CF6/FFFFFF?text=State+Management',
     readTime: 10,
     createdAt: new Date('2024-01-05'),
-    author: { name: 'Mike Johnson', image: '/api/placeholder/40/40' },
+    author: { name: 'Mike Johnson', image: 'https://via.placeholder.com/40x40/F59E0B/FFFFFF?text=MJ' },
     categories: [{ name: 'React.js', slug: 'reactjs', color: '#61DAFB' }],
     tags: [{ name: 'state-management' }, { name: 'redux' }],
     featured: false,
@@ -75,7 +75,7 @@ function PostCard({ post }) {
           {post.categories.map((category) => (
             <Link
               key={category.slug}
-              href={`/blog/categories/${category.slug}`}
+              href={`/blog/category/${category.slug}`}
               className="px-3 py-1 rounded-full text-sm font-medium text-white hover:opacity-80 transition-opacity"
               style={{ backgroundColor: category.color }}
             >
@@ -278,7 +278,7 @@ export default async function BlogPage({ searchParams }) {
                 {categories.map((category) => (
                   <Link
                     key={category.slug}
-                    href={`/blog/categories/${category.slug}`}
+                    href={`/blog/category/${category.slug}`}
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                   >
                     <div className="flex items-center gap-3">

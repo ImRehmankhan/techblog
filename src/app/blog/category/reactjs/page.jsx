@@ -336,9 +336,9 @@ export default function ReactJSPage() {
                       {post.excerpt}
                     </p>
                     <div className="flex items-center gap-4 text-sm text-gray-500">
-                      <span>👤 {post.author.name}</span>
-                      <span>⏱ {post.readTime} min read</span>
-                      <span>📅 {post.createdAt.toLocaleDateString()}</span>
+                      <span>👤&nbsp;{post.author.name}</span>
+                      <span>⏱&nbsp;{post.readTime} min read</span>
+                      <span>📅&nbsp;{post.createdAt.toLocaleDateString()}</span>
                     </div>
                   </div>
                   <div className="mt-4 md:mt-0 md:ml-6">
