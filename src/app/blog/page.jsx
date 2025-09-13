@@ -310,14 +310,14 @@ export default async function BlogPage({ searchParams }) {
               <form className="space-y-3">
                 <input
                   type="email"
-                  placeholder="Your email address"
-                  className="w-full px-4 py-2 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
+                  placeholder="Enter your email address"
+                  className="w-full px-4 py-3 rounded-lg text-gray-900 placeholder-gray-400 bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:border-transparent shadow-sm"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-white text-blue-600 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                  className="w-full bg-white text-blue-600 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors shadow-sm hover:shadow-md"
                 >
-                  Subscribe
+                  Subscribe Now
                 </button>
               </form>
             </div>
