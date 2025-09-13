@@ -17,7 +17,8 @@ export default function SiteHeader() {
       return pathname === '/'
     }
     if (href === '/blog') {
-      return pathname === '/blog' || pathname.startsWith('/blog/')
+      // Only active for /blog and /blog/* but NOT for specific category pages
+      return pathname === '/blog' || (pathname.startsWith('/blog/') && !pathname.startsWith('/blog/category/'))
     }
     return pathname === href || pathname.startsWith(href + '/')
   }
