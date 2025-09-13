@@ -4,6 +4,13 @@ import { prisma } from '../../../lib/prisma'
 
 export async function GET(request) {
   try {
+    // Handle case when DATABASE_URL is not available during build
+    if (!prisma) {
+      return NextResponse.json(
+        { error: 'Database not available' },
+        { status: 503 }
+      )
+    }
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
@@ -101,6 +108,14 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    // Handle case when DATABASE_URL is not available during build
+    if (!prisma) {
+      return NextResponse.json(
+        { error: 'Database not available' },
+        { status: 503 }
+      )
+    }
+
     const user = await verifyAuth(request)
     
     if (!user || user.role !== 'ADMIN') {

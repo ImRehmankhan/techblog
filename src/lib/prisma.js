@@ -2,19 +2,36 @@ import { PrismaClient } from '@prisma/client'
 
 const globalForPrisma = globalThis
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL
-    }
+// Create Prisma client with better error handling for build time
+function createPrismaClient() {
+  if (!process.env.DATABASE_URL) {
+    console.warn('DATABASE_URL not found, Prisma client will be limited')
+    return null
   }
-})
+  
+  return new PrismaClient({
+    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL
+      }
+    }
+  })
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+export const prisma = globalForPrisma.prisma ?? createPrismaClient()
+
+if (process.env.NODE_ENV !== 'production' && prisma) {
+  globalForPrisma.prisma = prisma
+}
 
 // Helper functions for blog operations
 export async function getPublishedPosts(take, skip) {
+  if (!prisma) {
+    console.warn('Prisma client not available')
+    return []
+  }
+  
   return await prisma.post.findMany({
     where: { published: true },
     include: {
@@ -30,6 +47,11 @@ export async function getPublishedPosts(take, skip) {
 }
 
 export async function getPostBySlug(slug) {
+  if (!prisma) {
+    console.warn('Prisma client not available')
+    return null
+  }
+  
   return await prisma.post.findUnique({
     where: { slug, published: true },
     include: {
@@ -46,12 +68,22 @@ export async function getPostBySlug(slug) {
 }
 
 export async function getCategories() {
+  if (!prisma) {
+    console.warn('Prisma client not available')
+    return []
+  }
+  
   return await prisma.category.findMany({
     orderBy: { name: 'asc' }
   })
 }
 
 export async function getPostsByCategory(categorySlug, take, skip) {
+  if (!prisma) {
+    console.warn('Prisma client not available')
+    return []
+  }
+  
   return await prisma.post.findMany({
     where: {
       published: true,
@@ -72,6 +104,11 @@ export async function getPostsByCategory(categorySlug, take, skip) {
 }
 
 export async function searchPosts(query, take, skip) {
+  if (!prisma) {
+    console.warn('Prisma client not available')
+    return []
+  }
+  
   return await prisma.post.findMany({
     where: {
       published: true,

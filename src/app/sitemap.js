@@ -1,5 +1,3 @@
-import { MetadataRoute } from 'next'
-
 export default function sitemap() {
   const baseUrl = 'https://your-domain.com' // Replace with your actual domain
 

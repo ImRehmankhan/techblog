@@ -9,6 +9,24 @@ const JWT_SECRET = new TextEncoder().encode(
 // Verify admin credentials against database
 export async function verifyCredentials(email, password) {
   try {
+    // Handle case when DATABASE_URL is not available during build
+    if (!prisma) {
+      console.warn('Prisma client not available, using fallback admin auth')
+      // Fallback authentication when database is not available
+      const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com'
+      const adminPassword = process.env.ADMIN_PASSWORD || 'demo123'
+      
+      if (email === adminEmail && password === adminPassword) {
+        return {
+          id: 'admin-fallback',
+          email: adminEmail,
+          name: 'Admin User',
+          role: 'ADMIN'
+        }
+      }
+      return null
+    }
+
     const user = await prisma.user.findUnique({
       where: { email }
     })

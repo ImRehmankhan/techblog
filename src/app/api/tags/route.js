@@ -4,6 +4,14 @@ import { prisma } from '../../../lib/prisma'
 
 export async function GET() {
   try {
+    // Handle case when DATABASE_URL is not available during build
+    if (!prisma) {
+      return NextResponse.json(
+        { error: 'Database not available' },
+        { status: 503 }
+      )
+    }
+
     const tags = await prisma.tag.findMany({
       orderBy: { name: 'asc' },
       select: {
@@ -25,6 +33,14 @@ export async function GET() {
 
 export async function POST(request) {
   try {
+    // Handle case when DATABASE_URL is not available during build
+    if (!prisma) {
+      return NextResponse.json(
+        { error: 'Database not available' },
+        { status: 503 }
+      )
+    }
+
     const user = await verifyAuth(request)
     
     if (!user || user.role !== 'ADMIN') {
